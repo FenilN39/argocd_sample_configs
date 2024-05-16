@@ -26,4 +26,4 @@ spec:
     username: foo
   writeConnectionSecretToRef:
     name: example-dbinstance-out
-    namespace: default
+    namespace: crossplane
