@@ -1,29 +1,33 @@
-apiVersion: rds.aws.upbound.io/v1beta1
-kind: Instance
+apiVersion: rds.aws.crossplane.io/v1alpha1
+kind: DBInstance
 metadata:
-  annotations:
-    meta.upbound.io/example-id: rds/v1beta1/dbinstanceautomatedbackupsreplication
-    uptest.upbound.io/timeout: "3600"
-  labels:
-    testing.upbound.io/example-name: default-test
-  name: default-dbiabr
+  name: example-dbinstance
 spec:
   forProvider:
-    allocatedStorage: 10
-    autoGeneratePassword: true
-    backupRetentionPeriod: 7
-    dbName: mydb
-    engine: mysql
-    engineVersion: "5.7"
-    instanceClass: db.t3.micro
-    parameterGroupName: default.mysql5.7
-    passwordSecretRef:
+    allocatedStorage: 20
+    allowMajorVersionUpgrade: true
+    applyImmediately: true
+    autoMinorVersionUpgrade: true
+    autogeneratePassword: true
+    backupRetentionPeriod: 14
+    dbInstanceClass: db.t3.small
+    dbName: example
+    dbParameterGroupName: example-dbparametergroup
+    deleteAutomatedBackups: false
+    engine: postgres
+    engineVersion: "12.9"
+    masterUserPasswordSecretRef:
       key: password
       name: example-dbinstance
-      namespace: crossplane
-    region: us-west-1
+      namespace: crossplane-system
+    masterUsername: adminuser
+    publiclyAccessible: false
+    region: us-east-1
     skipFinalSnapshot: true
-    username: foo
+    storageEncrypted: false
+    storageType: gp2
+  providerConfigRef:
+    name: example
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: crossplane
