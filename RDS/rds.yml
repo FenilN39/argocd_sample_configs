@@ -1,44 +1,34 @@
-apiVersion: rds.aws.crossplane.io/v1alpha1
-kind: DBInstance
+# SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: rds.aws.upbound.io/v1beta1
+kind: Instance
 metadata:
-  name: example-dbinstance
+  annotations:
+    meta.upbound.io/example-id: rds/v1beta1/instance
+    uptest.upbound.io/timeout: "3600"
+  labels:
+    testing.upbound.io/example-name: example-dbinstance
+  name: example-dbinstance-szdc
 spec:
   forProvider:
-    region: us-east-1
+    dbName: example
+    region: us-west-1
     allocatedStorage: 20
     autoMinorVersionUpgrade: true
-    autogeneratePassword: true
     backupRetentionPeriod: 14
-    dbInstanceClass: db.t3.micro # needs to support engine and -version (see AWS Docs: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Support)
-    dbName: example
+    instanceClass: db.t3.micro
     engine: postgres
-    engineVersion: "12.9"
-    allowMajorVersionUpgrade: true # unset per default (Note: supported dbInstanceClass and dbParameterGroup with correct dbParameterGroupFamily needed, before majorVersion upgrade possible; applyImmediately matters)
-    masterUsername: adminuser
-    masterUserPasswordSecretRef:
-      key: password
-      name: example-dbinstance
-      namespace: crossplane-system
-    preferredBackupWindow: "7:00-8:00"
-    preferredMaintenanceWindow: "Sat:8:00-Sat:11:00"
+    engineVersion: "16.1"
+    username: adminuser
+    autoGeneratePassword: true
+    backupWindow: "09:46-10:16"
+    maintenanceWindow: "Mon:00:00-Mon:03:00"
     publiclyAccessible: false
     skipFinalSnapshot: true
-    storageEncrypted: false
+    storageEncrypted: true
     storageType: gp2
-    dbParameterGroupName: example-dbparametergroup
-    applyImmediately: true
-    deleteAutomatedBackups: false # default is true
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: default
-  providerConfigRef:
-    name: example
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: example-dbinstance
-  namespace: crossplane-system
-type: Opaque
-data:
-  password: dGVzdFBhc3N3b3JkITEyMw== # testPassword!123
