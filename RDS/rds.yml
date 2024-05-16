@@ -2,29 +2,28 @@ apiVersion: rds.aws.upbound.io/v1beta1
 kind: Instance
 metadata:
   annotations:
-    meta.upbound.io/example-id: rds/v1beta1/instanceroleassociation
+    meta.upbound.io/example-id: rds/v1beta1/dbinstanceautomatedbackupsreplication
     uptest.upbound.io/timeout: "3600"
   labels:
-    testing.upbound.io/example-name: example-dbinstance-ira
-  name: example-dbinstance-ira
+    testing.upbound.io/example-name: default-test
+  name: default-dbiabr
 spec:
   forProvider:
-    allocatedStorage: 20
+    allocatedStorage: 10
     autoGeneratePassword: true
-    autoMinorVersionUpgrade: true
-    dbName: example
-    engine: postgres
-    engineVersion: "13.7"
-    instanceClass: db.t3.small
+    backupRetentionPeriod: 7
+    dbName: mydb
+    engine: mysql
+    engineVersion: "5.7"
+    instanceClass: db.t3.micro
+    parameterGroupName: default.mysql5.7
     passwordSecretRef:
       key: password
       name: example-dbinstance
       namespace: upbound-system
-    publiclyAccessible: false
     region: us-west-1
-    storageEncrypted: true
-    storageType: gp2
-    username: adminuser
+    skipFinalSnapshot: true
+    username: foo
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: default
