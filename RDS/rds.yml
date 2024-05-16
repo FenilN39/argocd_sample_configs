@@ -28,6 +28,7 @@ spec:
     storageType: gp2
   providerConfigRef:
     name: provider-aws
+    namespace: crossplane
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: crossplane
