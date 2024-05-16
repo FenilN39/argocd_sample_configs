@@ -20,7 +20,7 @@ spec:
     passwordSecretRef:
       key: password
       name: example-dbinstance
-      namespace: upbound
+      namespace: crossplane
     region: us-west-1
     skipFinalSnapshot: true
     username: foo
