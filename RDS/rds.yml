@@ -18,8 +18,8 @@ spec:
     engineVersion: "12.9"
     masterUserPasswordSecretRef:
       key: password
-      name: example-dbinstance
-      namespace: crossplane-system
+      name: rds-password
+      namespace: crossplane
     masterUsername: adminuser
     publiclyAccessible: false
     region: us-east-1
@@ -27,7 +27,7 @@ spec:
     storageEncrypted: false
     storageType: gp2
   providerConfigRef:
-    name: example
+    name: default
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: crossplane
