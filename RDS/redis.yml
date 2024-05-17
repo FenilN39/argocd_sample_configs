@@ -15,8 +15,7 @@ spec:
     parameterGroupName: default.redis7
     port: 6379
     region: us-east-1
-    securityGroupIds:
-      - name: sg-079a30bb0d270c548
+    securityGroupIds: ['sg-079a30bb0d270c548']
     tags:
       - key: Name
         value: sample-cluster
