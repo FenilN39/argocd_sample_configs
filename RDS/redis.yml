@@ -9,15 +9,17 @@ metadata:
   name: sample-cluster
 spec:
   forProvider:
-    engine: redis
+    engine: ${variables.engine}
     nodeType: cache.t2.micro
     numCacheNodes: 1
     parameterGroupName: default.redis7
     port: 6379
     region: us-east-1
-    securityGroupIdSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
-    subnetGroupNameSelector:
-      matchLabels:
-        testing.upbound.io/example-name: example
+    securityGroupIds:
+      - name: sg-079a30bb0d270c548
+    tags:
+      - key: Name
+        value: sample-cluster
+      - key: Environment
+        value: testing
+    
