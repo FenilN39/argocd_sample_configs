@@ -5,7 +5,7 @@ metadata:
     meta.upbound.io/example-id: elasticache/v1beta1/cluster
     uptest.upbound.io/timeout: "3600"
   labels:
-    testing.upbound.io/example-name: example
+    testing.upbound.io/example-name: example  
   name: sample-cluster
 spec:
   forProvider:
@@ -16,8 +16,6 @@ spec:
     port: 6379
     region: us-east-1
     securityGroupIds:
-      - sg-079a30bb0d270c548
-    tags:
-      - Name:  sample-cluster
-      - Environment:  testing
+      - "sg-079a30bb0d270c548"
+
     
