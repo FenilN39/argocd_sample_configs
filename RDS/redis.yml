@@ -9,7 +9,7 @@ metadata:
   name: sample-cluster
 spec:
   forProvider:
-    engine: ${variables.engine}
+    engine: redis
     nodeType: cache.t2.micro
     numCacheNodes: 1
     parameterGroupName: default.redis7

@@ -1,6 +1,0 @@
-variables:
-  clusterName: sample-cluster
-  engine: redis
-  nodeType: cache.t2.micro
-  numCacheNodes: 1
-  parameterGroupName: default.redis7
