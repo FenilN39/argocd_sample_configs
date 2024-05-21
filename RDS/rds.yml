@@ -15,7 +15,7 @@ spec:
     dbName: mydb
     engine: mysql
     engineVersion: "5.7"
-    instanceClass: db.t4g.micro
+    instanceClass: db.t3.micro
     parameterGroupName: default.mysql5.7
     passwordSecretRef:
       key: password
