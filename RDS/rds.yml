@@ -9,6 +9,7 @@ metadata:
   name: default-dbiabr
 spec:
   forProvider:
+    identifier: example-dbinstance
     allocatedStorage: 10
     autoGeneratePassword: true
     backupRetentionPeriod: 7

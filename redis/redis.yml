@@ -17,5 +17,8 @@ spec:
     region: us-east-1
     securityGroupIds:
       - "sg-079a30bb0d270c548"
+    writeConnectionSecretToRef:
+      name: sample-cluster-out
+      namespace: crossplane
 
     
