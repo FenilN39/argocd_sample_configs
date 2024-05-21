@@ -25,6 +25,11 @@ spec:
     region: us-east-1
     skipFinalSnapshot: true
     username: foo
+  publishConnectionDetailsTo:
+    - type: Secret
+      secretRef:
+        name: example-dbinstance-out
+        namespace: crossplane
   writeConnectionSecretToRef:
     name: example-dbinstance-out
     namespace: crossplane
