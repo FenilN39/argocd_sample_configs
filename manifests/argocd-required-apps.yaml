@@ -13,7 +13,7 @@ spec:
       values: |
         customResourceDefinitions:
           skip: true
-        domain: local.howso.com
+        domain: argontech.site
         images:
           registry: proxy.replicated.com
           registryNamespace: proxy/howso-platform/dpbuild-docker-edge.jfrog.io/dp
