@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+  name: howso-ingress
+  namespace: howso
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: media.argontech.site
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: howso-service
+            port:
+              number: 80
+  tls:
+  # This secret must exist beforehand
+  # The cert must also contain the subj-name media.argontech.site
+  # https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/PREREQUISITES.md#tls-certificates
+  - secretName: howso-tls
+    hosts:
+      - media.argontech.site
