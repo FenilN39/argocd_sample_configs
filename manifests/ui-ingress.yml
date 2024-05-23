@@ -3,25 +3,25 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  name: management-ingress
+  name: ui-ingress
   namespace: howso
 spec:
   ingressClassName: nginx
   rules:
-  - host: man.argontech.site
+  - host: ui.argontech.site
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: platform-ums
+            name: platform-ui-v2
             port:
               number: 8000
   tls:
   # This secret must exist beforehand
   # The cert must also contain the subj-name media.argontech.site
   # https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/PREREQUISITES.md#tls-certificates
-  - secretName: management-howso-tls
+  - secretName: ui-howso-tls
     hosts:
-      - man.argontech.site
+      - ui.argontech.site
