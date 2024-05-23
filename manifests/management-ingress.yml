@@ -3,27 +3,25 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
   name: howso-ingress
   namespace: howso
 spec:
   ingressClassName: nginx
   rules:
-  - host: media.argontech.site
+  - host: man.argontech.site
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: platform-pypi
+            name: platform-ums
             port:
-              number: 80
+              number: 8000
   tls:
   # This secret must exist beforehand
   # The cert must also contain the subj-name media.argontech.site
   # https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/PREREQUISITES.md#tls-certificates
   - secretName: howso-tls
     hosts:
-      - media.argontech.site
-
+      - man.argontech.site
