@@ -20,6 +20,7 @@ spec:
     engine: postgres
     engineVersion: "16.3"
     instanceClass: db.t3.micro
+    autoMinorVersionUpgrade: true
     dbSubnetGroupNameSelector:
       matchLabels:
         prod.upbound.io/app-name: hotel-inn-subnet-group
