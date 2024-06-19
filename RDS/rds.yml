@@ -35,7 +35,7 @@ spec:
     publiclyAccessible: true
     region: us-east-1
     skipFinalSnapshot: true
-    username: admin
+    username: adminuser
     vpcSecurityGroupIdSelector:
       matchLabels:
         prod.upbound.io/app-name: hotel-inn-sg
