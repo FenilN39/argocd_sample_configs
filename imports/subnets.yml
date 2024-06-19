@@ -12,3 +12,37 @@ spec:
   managementPolicies: ["Observe"]
   forProvider:
     region: us-east-1
+
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    crossplane.io/external-name: subnet-01ac081499b2f901c
+  labels:
+    prod.upbound.io/app-name: hotel-inn-subnet
+    prod.upbound.io/managed-by: crossplane
+    prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1b
+  name: hotelinn-prod-hotelinn-public-use1b
+spec:
+  managementPolicies: ["Observe"]
+  forProvider:
+    region: us-east-1
+
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    crossplane.io/external-name: subnet-00af2e071d102b08f
+  labels:
+    prod.upbound.io/app-name: hotel-inn-subnet
+    prod.upbound.io/managed-by: crossplane
+    prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1c
+  name: hotelinn-prod-hotelinn-public-use1c
+spec:
+  managementPolicies: ["Observe"]
+  forProvider:
+    region: us-east-1

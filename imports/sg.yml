@@ -1,0 +1,14 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroup
+metadata:
+  annotations:
+    crossplane.io/external-name: sg-0ae23964da027d82a
+  labels:
+    prod.upbound.io/app-name: hotel-inn-sg
+    prod.upbound.io/managed-by: crossplane
+    prod.upbound.io/name: hotelinn-sg
+  name: hotelinn-sg
+spec:
+  managementPolicies: ["Observe"]
+  forProvider:
+    region: us-east-1
