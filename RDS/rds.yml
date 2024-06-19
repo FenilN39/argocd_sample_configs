@@ -18,7 +18,7 @@ spec:
     backupRetentionPeriod: 7
     dbName: mydb
     engine: postgres
-    engineVersion: "16.3-r1"
+    engineVersion: "16.3-R1"
     instanceClass: db.t3.micro
     dbSubnetGroupNameSelector:
       matchLabels:
