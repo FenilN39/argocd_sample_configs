@@ -9,5 +9,6 @@ metadata:
     prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1a
   name: hotelinn-prod-hotelinn-public-use1a
 spec:
+  managementPolicies: ["Observe"]
   forProvider:
     region: us-east-1

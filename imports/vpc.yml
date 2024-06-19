@@ -9,6 +9,7 @@ metadata:
     prod.upbound.io/name: hotel-inn-vpc
   name: hotel-inn-vpc
 spec:
+  managementPolicies: ["Observe"]
   forProvider:
     region: us-east-1
 
