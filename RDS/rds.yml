@@ -14,8 +14,8 @@ spec:
     autoGeneratePassword: true
     backupRetentionPeriod: 7
     dbName: mydb
-    engine: mysql
-    engineVersion: "5.7"
+    engine: postgres
+    engineVersion: "16.3-r1"
     instanceClass: db.t3.micro
     parameterGroupName: default.mysql5.7
     passwordSecretRef:
