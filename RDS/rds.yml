@@ -4,8 +4,11 @@ metadata:
   annotations:
     meta.upbound.io/example-id: rds/v1beta1/dbinstanceautomatedbackupsreplication
     uptest.upbound.io/timeout: "3600"
+    prod.upbound.io/app-name: hotel-inn-subnet
+    prod.upbound.io/managed-by: crossplane
+    prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1a
   labels:
-    testing.upbound.io/example-name: default-test
+    prod.upbound.io/database-name: rds
   name: default-dbiabr
 spec:
   forProvider:
@@ -17,14 +20,20 @@ spec:
     engine: postgres
     engineVersion: "16.3-r1"
     instanceClass: db.t3.micro
-    parameterGroupName: default.mysql5.7
-    passwordSecretRef:
-      key: password
-      name: rds-password
-      namespace: crossplane
-    region: us-west-1
+    dbSubnetGroupNameSelector:
+      matchLabels:
+        prod.upbound.io/app-name: hotel-inn-subnet
+        prod.upbound.io/managed-by: crossplane
+        prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1a
+    multiAZ: false
+    region: us-east-1
     skipFinalSnapshot: true
-    username: foo
+    username: admin
+    vpcSecurityGroupIdSelector:
+      matchLabels:
+        prod.upbound.io/app-name: hotel-inn-sg
+        prod.upbound.io/managed-by: crossplane
+        prod.upbound.io/name: hotelinn-sg
   writeConnectionSecretToRef:
-    name: example-dbinstance-out
+    name: default-dbiabr-connection
     namespace: crossplane
