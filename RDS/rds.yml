@@ -31,9 +31,10 @@ spec:
     username: admin
     vpcSecurityGroupIdSelector:
       matchLabels:
-        prod.upbound.io/app-name: hotel-inn-sg
+        prod.upbound.io/app-name: hotel-inn-subnet-group
         prod.upbound.io/managed-by: crossplane
-        prod.upbound.io/name: hotelinn-sg
+        prod.upbound.io/name: subnet-group
+        prod.upbound.io/subnet-group-name: default-subnet-group
   writeConnectionSecretToRef:
     name: default-dbiabr-connection
     namespace: crossplane
