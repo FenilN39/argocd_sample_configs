@@ -1,26 +1,16 @@
 apiVersion: rds.aws.upbound.io/v1beta1
 kind: SubnetGroup
 metadata:
-  annotations:
-    meta.upbound.io/example-id: rds/v1beta1/dbinstancesubnetgroup
-    uptest.upbound.io/timeout: "3600"
   labels:
-    prod.upbound.io/app-name: hotel-inn-subnet-group
+    prod.upbound.io/app-name: hotel-inn-subnet-group1
     prod.upbound.io/managed-by: crossplane
     prod.upbound.io/name: subnet-group
-    prod.upbound.io/subnet-group-name: default-subnet-group
-  name: default-subnet-group
+    prod.upbound.io/subnet-group-name: default-subnet-group1
+  name: default-subnet-group1
 spec:
   forProvider:
     region: us-east-1
     subnetIdSelector:
-      - matchLabels:
+      matchLabels:
         prod.upbound.io/app-name: hotel-inn-subnet
         prod.upbound.io/managed-by: crossplane
-        prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1a
-      - matchLabels:
-          prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1b
-      - matchLabels:
-          prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1c
-    tags:
-      Name: My DB subnet group
