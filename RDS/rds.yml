@@ -14,7 +14,10 @@ spec:
   forProvider:
     identifier: example-dbinstance
     allocatedStorage: 10
-    autoGeneratePassword: true
+    passwordSecretRef:
+      key: password
+      name: rds-creds
+      namespace: crossplane
     backupRetentionPeriod: 7
     dbName: mydb
     engine: postgres
