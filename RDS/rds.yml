@@ -22,9 +22,9 @@ spec:
     instanceClass: db.t3.micro
     dbSubnetGroupNameSelector:
       matchLabels:
-        prod.upbound.io/app-name: hotel-inn-subnet
+        prod.upbound.io/app-name: hotel-inn-vpc
         prod.upbound.io/managed-by: crossplane
-        prod.upbound.io/name: hotelinn-prod-hotelinn-public-use1a
+        prod.upbound.io/name: hotel-inn-vpc
     multiAZ: false
     region: us-east-1
     skipFinalSnapshot: true
