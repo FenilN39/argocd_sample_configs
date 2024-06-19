@@ -12,17 +12,18 @@ metadata:
   name: default-dbiabr
 spec:
   forProvider:
-    identifier: example-dbinstance
+    identifier: default-dbiabr
     allocatedStorage: 10
     passwordSecretRef:
       key: password
-      name: rds-creds
+      name: example-dbinstance
       namespace: crossplane
     backupRetentionPeriod: 7
     dbName: mydb
     engine: postgres
     engineVersion: "16.3"
     instanceClass: db.t3.micro
+    autoGeneratePassword: true
     autoMinorVersionUpgrade: true
     dbSubnetGroupNameSelector:
       matchLabels:
@@ -31,6 +32,7 @@ spec:
         prod.upbound.io/name: subnet-group
         prod.upbound.io/subnet-group-name: default-subnet-group
     multiAZ: false
+    publiclyAccessible: true
     region: us-east-1
     skipFinalSnapshot: true
     username: admin
