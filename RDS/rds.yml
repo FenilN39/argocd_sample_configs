@@ -22,19 +22,19 @@ spec:
     instanceClass: db.t3.micro
     dbSubnetGroupNameSelector:
       matchLabels:
-        prod.upbound.io/app-name: hotel-inn-vpc
+        prod.upbound.io/app-name: hotel-inn-subnet-group
         prod.upbound.io/managed-by: crossplane
-        prod.upbound.io/name: hotel-inn-vpc
+        prod.upbound.io/name: subnet-group
+        prod.upbound.io/subnet-group-name: default-subnet-group
     multiAZ: false
     region: us-east-1
     skipFinalSnapshot: true
     username: admin
     vpcSecurityGroupIdSelector:
       matchLabels:
-        prod.upbound.io/app-name: hotel-inn-subnet-group
+        prod.upbound.io/app-name: hotel-inn-sg
         prod.upbound.io/managed-by: crossplane
-        prod.upbound.io/name: subnet-group
-        prod.upbound.io/subnet-group-name: default-subnet-group
+        prod.upbound.io/name: hotelinn-sg
   writeConnectionSecretToRef:
     name: default-dbiabr-connection
     namespace: crossplane
