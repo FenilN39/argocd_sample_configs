@@ -43,4 +43,4 @@ spec:
         prod.upbound.io/name: hotelinn-sg
   writeConnectionSecretToRef:
     name: default-dbiabr-connection
-    namespace: crossplane
+    namespace: default
