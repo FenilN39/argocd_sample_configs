@@ -2,7 +2,7 @@ apiVersion: ec2.aws.upbound.io/v1beta1
 kind: VPC
 metadata:
   annotations:
-    crossplane.io/external-name: vpc-0b2595749462777df
+    crossplane.io/external-name: vpc-02127b03e9738c25c
   labels:
     prod.upbound.io/app-name: hotel-inn-vpc
     prod.upbound.io/managed-by: crossplane

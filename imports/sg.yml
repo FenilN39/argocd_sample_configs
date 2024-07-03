@@ -2,7 +2,7 @@ apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroup
 metadata:
   annotations:
-    crossplane.io/external-name: sg-0ae23964da027d82a
+    crossplane.io/external-name: sg-0219d37150a160d50
   labels:
     prod.upbound.io/app-name: hotel-inn-sg
     prod.upbound.io/managed-by: crossplane
