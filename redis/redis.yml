@@ -15,10 +15,20 @@ spec:
     parameterGroupName: default.redis7
     port: 6379
     region: us-east-1
-    securityGroupIds:
-      - "sg-079a30bb0d270c548"
-    writeConnectionSecretToRef:
-      name: sample-cluster-out
-      namespace: crossplane
+    # securityGroupIds:
+    #   - "sg-079a30bb0d270c548"
 
-    
+    subnetGroupNameSelector:
+      matchLabels:
+        prod.upbound.io/app-name: hotel-inn-subnet-group
+        prod.upbound.io/managed-by: crossplane
+        prod.upbound.io/name: subnet-group
+        prod.upbound.io/subnet-group-name: default-subnet-group
+    securityGroupIdSelector:
+      matchLabels:
+        prod.upbound.io/app-name: hotel-inn-sg
+        prod.upbound.io/managed-by: crossplane
+        prod.upbound.io/name: hotelinn-sg
+  writeConnectionSecretToRef:
+    name: sample-cluster-out
+    namespace: crossplane
