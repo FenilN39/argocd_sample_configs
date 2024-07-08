@@ -11,13 +11,14 @@ spec:
   forProvider:
     engine: redis
     nodeType: cache.t2.micro
-    numCacheNodes: 1
+    numCacheNodes: 2
     parameterGroupName: default.redis7
     port: 6379
     region: us-east-1
+    networkType: ipv4
     # securityGroupIds:
     #   - "sg-079a30bb0d270c548"
-
+    transitEncryptionEnabled: true
     subnetGroupNameSelector:
       matchLabels:
         prod.upbound.io/app-name: hotel-inn-subnet-group
@@ -29,6 +30,8 @@ spec:
         prod.upbound.io/app-name: hotel-inn-sg
         prod.upbound.io/managed-by: crossplane
         prod.upbound.io/name: hotelinn-sg
+    tags:
+      managed_by: crossplane  
   writeConnectionSecretToRef:
     name: sample-cluster-out
     namespace: crossplane
