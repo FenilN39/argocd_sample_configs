@@ -1,16 +1,19 @@
 apiVersion: rds.aws.upbound.io/v1beta1
 kind: SubnetGroup
+
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
   labels:
-    prod.upbound.io/app-name: hotel-inn-subnet-group
-    prod.upbound.io/managed-by: crossplane
-    prod.upbound.io/name: subnet-group
-    prod.upbound.io/subnet-group-name: default-subnet-group
+    app-name: subnet-group
+    managed-by: crossplane
+    env: prod
+    subnet-group-name: default-subnet-group
   name: default-subnet-group
 spec:
   forProvider:
     region: us-east-1
     subnetIdSelector:
       matchLabels:
-        prod.upbound.io/app-name: hotel-inn-subnet
-        prod.upbound.io/managed-by: crossplane
+        app-name: qauth-prod-subnet
+        managed-by: crossplane

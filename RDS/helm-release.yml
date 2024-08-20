@@ -1,0 +1,34 @@
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+annotations:
+  argocd.argoproj.io/sync-wave: "4"
+metadata:
+  name: tooljet-example
+spec:
+# rollbackLimit: 3
+  forProvider:
+    chart:
+      name: tooljet
+      repository: https://tooljet.github.io/helm-charts
+      version: 15.2.5 ## To use development versions, set ">0.0.0-0"
+#     pullSecretRef:
+#       name: museum-creds
+#       namespace: default
+    namespace: tooljet
+#   insecureSkipTLSVerify: true
+#   skipCreateNamespace: true
+#   wait: true
+#   skipCRDs: true
+    values:
+      external_postgresql:
+        enabled: true
+        PG_HOST: "tooljet-postgresql.tooljet.svc.cluster.local"
+        PG_USER: "postgres"
+        PG_PASS: "1000m"
+        PG_PORT: '"5432"'
+    set:
+      - name: param1
+        value: value2
+
+  providerConfigRef:
+    name: helm-provider

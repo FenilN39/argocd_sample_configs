@@ -11,7 +11,7 @@ spec:
   forProvider:
     engine: redis
     nodeType: cache.t2.micro
-    numCacheNodes: 2
+    numCacheNodes: 1
     parameterGroupName: default.redis7
     port: 6379
     region: us-east-1

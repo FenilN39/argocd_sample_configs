@@ -1,0 +1,44 @@
+apiVersion: rds.aws.upbound.io/v1beta2
+kind: Instance
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app-name: qauth-prod-rds
+    managed-by: crossplane
+    name: qauth-prod-qauth-public-use1a
+    database-name: rds
+  name: new-rds
+spec:
+  forProvider:
+    identifier: new-rds
+    identifierPrefix: new-rds
+    allocatedStorage: 10
+    passwordSecretRef:
+      key: password
+      name: rds-creds
+      namespace: crossplane
+    backupRetentionPeriod: 7
+    dbName: mydb
+    engine: postgres
+    engineVersion: "16.3"
+    instanceClass: db.t3.micro
+    manageMasterUserPassword: false
+    # autoGeneratePassword: true
+    autoMinorVersionUpgrade: true
+    dbSubnetGroupNameSelector:
+      matchLabels:
+        app-name: subnet-group
+        managed-by: crossplane
+    multiAz: false
+    publiclyAccessible: true
+    region: us-east-1
+    skipFinalSnapshot: true
+    username: adminuser
+    vpcSecurityGroupIdSelector:
+      matchLabels:
+        app-name: qauth-prod-sg
+        managed-by: crossplane
+  writeConnectionSecretToRef:
+    name: rds-connection
+    namespace: default
