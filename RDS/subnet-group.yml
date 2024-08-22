@@ -3,7 +3,7 @@ kind: SubnetGroup
 
 metadata:
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    # argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-2"
   labels:
     app-name: subnet-group

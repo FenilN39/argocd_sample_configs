@@ -2,7 +2,7 @@ apiVersion: rds.aws.upbound.io/v1beta2
 kind: Instance
 metadata:
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    # argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-1"
   labels:
     app-name: qauth-prod-rds
