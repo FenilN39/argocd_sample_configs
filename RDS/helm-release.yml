@@ -1,7 +1,7 @@
 apiVersion: helm.crossplane.io/v1beta1
 kind: Release
-annotations:
-  argocd.argoproj.io/sync-wave: "4"
+# annotations:
+#   argocd.argoproj.io/sync-wave: "4"
 metadata:
   name: tooljet-example
 spec:
@@ -19,16 +19,42 @@ spec:
 #   skipCreateNamespace: true
 #   wait: true
 #   skipCRDs: true
-    values:
-      external_postgresql:
-        enabled: true
-        PG_HOST: "tooljet-postgresql.tooljet.svc.cluster.local"
-        PG_USER: "postgres"
-        PG_PASS: "1000m"
-        PG_PORT: '"5432"'
+    # values:
+    #   external_postgresql:
+    #     enabled: true
+    #     PG_HOST: "tooljet-postgresql.tooljet.svc.cluster.local"
+    #     PG_USER: "postgres"
+    #     PG_PASS: "1000m"
+    #     PG_PORT: '"5432"'
     set:
-      - name: param1
-        value: value2
-
+      - name: external_postgresql.PG_HOST
+        valueFrom:
+          secretKeyRef:
+            name: rds-connection
+            key: address
+            namespace: default
+      - name: external_postgresql.PG_USER
+        valueFrom:
+          secretKeyRef:
+            name: rds-connection
+            key: username
+            namespace: default
+      - name: external_postgresql.PG_PASS
+        valueFrom:
+          secretKeyRef:
+            name: rds-connection
+            key: password
+            namespace: default
+      - name: external_postgresql.PG_PORT
+        value: '"5432"'
+      - name: external_postgresql.enabled
+        value: "true"
+      - name: postgresql.enabled
+        value: "false"
+    # patchesFrom:
+    #   - secretKeyRef:
+    #       name: rds-connection
+    #       key: password
+    #       namespace: default
   providerConfigRef:
     name: helm-provider

@@ -11,7 +11,7 @@ metadata:
   name: newrds
 spec:
   forProvider:
-    identifierPrefix: newrds
+    identifier: newrds
     allocatedStorage: 20
     passwordSecretRef:
       key: password
