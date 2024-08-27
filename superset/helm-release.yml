@@ -13,6 +13,8 @@ spec:
       postgresql:
         enabled: false
     set:
+      - name : extraSecretEnv.SUPERSET_SECRET_KEY
+        value : '7fnuxCV6gfWtG5E1h2+KRui1Hdv0BdTayEZ4aTsAYzLrjQoPCwg7TqXP'
       - name: supersetNode.connections.db_host
         valueFrom:
           secretKeyRef:
@@ -32,7 +34,7 @@ spec:
             key: password
             namespace: default
       - name: supersetNode.connections.db_port
-        value: '"5432"'
+        value: "5432"
       - name: supersetNode.connections.db_name
         value: "superset"
   providerConfigRef:
