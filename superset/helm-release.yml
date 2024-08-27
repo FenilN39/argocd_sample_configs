@@ -1,0 +1,39 @@
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: superset
+spec:
+# rollbackLimit: 3
+  forProvider:
+    chart:
+      name: superset
+      repository: http://apache.github.io/superset/
+    namespace: superset
+    values:
+      postgresql:
+        enabled: false
+    set:
+      - name: supersetNode.connections.db_host
+        valueFrom:
+          secretKeyRef:
+            name: rds-superset-connection
+            key: address
+            namespace: default
+      - name: supersetNode.connections.db_user
+        valueFrom:
+          secretKeyRef:
+            name: rds-superset-connection
+            key: username
+            namespace: default
+      - name: supersetNode.connections.db_pass
+        valueFrom:
+          secretKeyRef:
+            name: rds-superset-connection
+            key: password
+            namespace: default
+      - name: supersetNode.connections.db_port
+        value: '"5432"'
+      - name: supersetNode.connections.db_name
+        value: "superset"
+  providerConfigRef:
+    name: helm-provider
