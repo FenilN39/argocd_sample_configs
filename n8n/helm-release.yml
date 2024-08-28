@@ -7,7 +7,10 @@ spec:
   forProvider:
     chart:
       name: n8n
-      repository: "https://raw.githubusercontent.com/8gears/n8n-helm-chart/main/charts/n8n/"
+      repository: "https://raw.githubusercontent.com/fenilSB/charts/dev/"
+      pullSecretRef:
+        name: helm-repo-secret
+        namespace: default
       # version: 0.25.0
     namespace: n8n
     values:
