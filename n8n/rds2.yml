@@ -1,0 +1,46 @@
+apiVersion: rds.aws.upbound.io/v1beta2
+kind: Instance
+metadata:
+  annotations:
+    # argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-1"
+  labels:
+    app-name: n8n
+    managed-by: crossplane
+    database-name: n8n
+  name: n8n-kube-rds
+spec:
+  forProvider:
+    identifier: n8n-kube-rds
+    allocatedStorage: 20
+    passwordSecretRef:
+      key: password
+      name: rds-creds
+      namespace: crossplane
+    backupRetentionPeriod: 7
+    dbName: n8n
+    engine: postgres
+    engineVersion: "16.3"
+    instanceClass: "db.t3.micro"
+    manageMasterUserPassword: false
+    autoGeneratePassword: false
+    # parameterGroupName: "default.postgres16"
+    autoMinorVersionUpgrade: true
+    dbSubnetGroupNameSelector:
+      matchLabels:
+        app-name: subnet-group
+        managed-by: crossplane
+        subnet-group-name: default-subnet-group
+    multiAz: false
+    publiclyAccessible: true
+    region: us-east-1
+    skipFinalSnapshot: true
+    username: n8n
+    vpcSecurityGroupIdSelector:
+      matchLabels:
+        app-name: qauth-prod-sg
+        managed-by: crossplane
+        name: qauth-prod-sg
+  writeConnectionSecretToRef:
+    name: rds-n8n-connection
+    namespace: default

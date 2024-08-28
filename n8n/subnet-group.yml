@@ -1,0 +1,20 @@
+apiVersion: rds.aws.upbound.io/v1beta1
+kind: SubnetGroup
+
+metadata:
+  annotations:
+    # argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-2"
+  labels:
+    app-name: subnet-group
+    managed-by: crossplane
+    env: prod
+    subnet-group-name: default-subnet-group
+  name: default-subnet-group
+spec:
+  forProvider:
+    region: us-east-1
+    subnetIdSelector:
+      matchLabels:
+        app-name: qauth-prod-subnet
+        managed-by: crossplane
