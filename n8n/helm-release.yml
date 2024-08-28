@@ -18,19 +18,19 @@ spec:
       - name: database.postgresdb.host
         valueFrom:
           secretKeyRef:
-            name: rds-superset-connection
+            name: rds-n8n-connection
             key: address
             namespace: default
       - name: database.postgresdb.user
         valueFrom:
           secretKeyRef:
-            name: rds-superset-connection
+            name: rds-n8n-connection
             key: username
             namespace: default
       - name: database.postgresdb.password
         valueFrom:
           secretKeyRef:
-            name: rds-superset-connection
+            name: rds-n8n-connection
             key: password
             namespace: default
 
