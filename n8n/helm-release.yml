@@ -8,6 +8,7 @@ spec:
     chart:
       name: n8n
       repository: "oci://8gears.container-registry.com/library/n8n"
+      version: 0.25.0
     namespace: n8n
     values:
       database:
