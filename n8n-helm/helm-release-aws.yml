@@ -1,0 +1,21 @@
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: rds
+spec:
+# rollbackLimit: 3
+  forProvider:
+    chart:
+      name: crossplane-aws-rds
+      repository: "https://raw.githubusercontent.com/fenilSB/charts/dev/"
+      pullSecretRef:
+        name: helm-repo-secret
+        namespace: default
+      # version: 0.25.0
+    namespace: crossplane
+    values:
+      rds:
+        dbName: n8n
+
+  providerConfigRef:
+    name: helm-provider

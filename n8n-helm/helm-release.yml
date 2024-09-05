@@ -1,0 +1,42 @@
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: n8n
+spec:
+# rollbackLimit: 3
+  forProvider:
+    chart:
+      name: n8n
+      repository: "https://raw.githubusercontent.com/fenilSB/charts/dev/"
+      pullSecretRef:
+        name: helm-repo-secret
+        namespace: default
+      # version: 0.25.0
+    namespace: n8n
+    values:
+      database:
+        type: postgresdb
+        postgresdb:
+          database: n8n
+    set:
+      - name: database.postgresdb.host
+        valueFrom:
+          secretKeyRef:
+            name: crossplane-aws-rds
+            key: address
+            namespace: default
+      - name: database.postgresdb.user
+        valueFrom:
+          secretKeyRef:
+            name: crossplane-aws-rds
+            key: username
+            namespace: default
+      - name: database.postgresdb.password
+        valueFrom:
+          secretKeyRef:
+            name: crossplane-aws-rds
+            key: password
+            namespace: default
+
+  providerConfigRef:
+    name: helm-provider

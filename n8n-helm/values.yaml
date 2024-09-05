@@ -1,0 +1,180 @@
+#
+# AWS RDS instance type
+#
+
+# to create new subnet Group
+subnetGroup:
+  create: true
+  name: qauth-subnet-group-test
+  labels:
+    app: subnet-group
+    managed_by: crossplane
+    env: prod
+    sb_repo: from-new-subnet-group
+  subnetSelectorLabels:
+    app-name: qauth-prod-subnet
+    managed-by: crossplane
+  # subnetIDs:
+  #   - subnet-0a1b2c3d4e5f6g7h8
+  #   - subnet-9i8h7g6f5e4d3c2b1a0
+
+rds:
+  enabled: true
+  type: instance # instance or cluster
+
+# Instance type inputes
+  instance:
+    labels:
+      app: mydb
+      managed_by: crossplane
+      env: prod
+      sb_repo: mydb
+    instanceName: rds-instance
+    autoGeneratePassword: false
+    dbName: mydb
+    engine: postgres
+    engineVersion: 16.3
+    instanceClass: db.t3.micro
+    multiAz: false
+    publiclyAccessible: true
+    skipFinalSnapshot: true
+    username: adminuser
+    allocatedStorage: 10
+    backupRetentionPeriod: 7
+    autoMinorVersionUpgrade: true
+    region: us-east-1
+    
+    # if vpc security group ids are provided, it will not use vpcSecurityGroupIdSelector
+    # vpcSecurityGroupIds:
+    #   - sg-0a1b2c3d4e5f6g7h8
+    #   - sg-9i8h7g6f5e4d3c2b1a0
+
+    vpcSecurityGroupIdSelector: # or use https://marketplace.upbound.io/providers/upbound/provider-aws-rds/v1.13.0/resources/rds.aws.upbound.io/Cluster/v1beta2#doc:spec-forProvider-vpcSecurityGroupIds
+      matchLabels:
+        app-name: qauth-prod-sg
+        managed-by: crossplane
+    extraArgs:
+# Cluster type Inputs
+  cluster:
+    labels:
+      app: mydbcluster
+      managed_by: crossplane
+      env: prod
+      sb_repo: mydbcluster
+    # allocatedStorage: 10  # uncomment when engineMode is provisioned 
+    autoGeneratePassword: false
+    availabilityZones: # https://marketplace.upbound.io/providers/upbound/provider-aws-rds/v1.13.0/resources/rds.aws.upbound.io/Cluster/v1beta2#doc:spec-forProvider-availabilityZones
+      - us-east-1a
+      - us-east-1b
+    backupRetentionPeriod: 14
+    enableHttpEndpoint: false
+    engine: aurora-postgresql # Valid Values: aurora-mysql, aurora-postgresql
+    # engineVersion: 11.10  # aws rds describe-db-engine-versions --engine aurora-(postgresql|mysql) --query "DBEngineVersions[].EngineVersion" --output text
+    masterUsername: adminuser
+    engineMode: serverless # Valid values: global (only valid for Aurora MySQL 1.21 and earlier), parallelquery, provisioned, serverless. Defaults to: provisioned. 
+    clusterIdentifier: mydbcluster
+    manageMasterUserPassword: false
+    region: us-east-1
+    databaseName: mydb
+    masterUserPassword: Scoobydoo123
+    masterPasswordSecretRef: 
+      name: rds-creds
+      key: password
+      namespace: default
+    port: 5432
+
+    # if vpc security group ids are provided, it will not use vpcSecurityGroupIdSelector
+    # vpcSecurityGroupIds:
+    #   - sg-0a1b2c3d4e5f6g7h8
+    #   - sg-9i8h7g6f5e4d3c2b1a0
+
+    vpcSecurityGroupIdSelector: # or use https://marketplace.upbound.io/providers/upbound/provider-aws-rds/v1.13.0/resources/rds.aws.upbound.io/Cluster/v1beta2#doc:spec-forProvider-vpcSecurityGroupIds
+      matchLabels:
+        app-name: qauth-prod-sg
+        managed-by: crossplane
+
+    # same as https://marketplace.upbound.io/providers/upbound/provider-aws-rds/v1.13.0/resources/rds.aws.upbound.io/Cluster/v1beta2
+    extraArgs: 
+      # replicationSourceIdentifier:
+      # storageEncrypted: 
+      # s3Import:
+      #   bucketName: 
+      #   bucketPrefix: 
+      #   ingestionRole:
+      # enabledCloudwatchLogsExports:
+      #   - audit
+      #   - error
+      #   - general
+      #   - slowquery
+
+# if subnetGroupName is provided, it will not use dbSubnetGroupNameSelector, uncomment when create is false
+# subnetGroupName: mydb-subnet-group
+  
+# Use Existing Subnet Group, if false it will use default subnet of the default VPC
+  subnetGroup:
+    enabled: false
+    labels:
+      app: mydb-subnet-group
+      managed_by: crossplane
+      env: prod
+      sb_repo: mydb-subnet-group
+
+password:
+  manageMasterUserPassword: false # if its true, it will manage the password and secret will not be created
+  secretName: rds-creds
+  secretPassword: U2Nvb2J5ZG9vMTIz # Scoobydoo123 # base64 encoded password
+
+tags:
+  Name: mydb-subnet-group
+  managed_by: crossplane
+  app: mydb-subnet-group
+  env: prod
+  sb_repo: mydb-subnet-group
+
+
+
+#
+# AWS Elasticache instance type
+#
+
+elasticache:
+  enabled: false
+  instanceName: elasticache-instance
+  engine: redis
+  engineVersion: "6.x"
+  nodeType: cache.t3.micro
+  numCacheNodes: 1
+  port: 6379
+  atRestEncryptionEnabled: false
+  transitEncryptionEnabled: false
+  authToken: ""
+  autoMinorVersionUpgrade: true
+  maintenanceWindow: "sun:05:00-sun:06:00"
+  snapshotRetentionLimit: 1
+  snapshotWindow: "03:00-04:00"
+  tags:
+    Name: elasticache-instance
+    managed_by: crossplane
+    app: elasticache-instance
+    env: prod
+    sb_repo: elasticache-instance
+
+  # Use Existing Subnet Group, if false it will use default subnet of the default VPC
+  subnetGroup:
+    enabled: false
+    labels:
+      app: elasticache-subnet-group
+      managed_by: crossplane
+      env: prod
+      sb_repo: elasticache-subnet-group
+
+  # Use Existing Security Group, if false it will use default security group
+  securityGroup:
+    enabled: false
+    labels:
+      app: elasticache-sg
+      managed_by: crossplane
+      env: prod
+      sb_repo: elasticache-sg
+
+
