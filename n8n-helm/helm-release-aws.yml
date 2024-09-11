@@ -16,6 +16,9 @@ spec:
     values:
       rds:
         dbName: n8n
+      connectionDetails:
+        secretName: crossplane-aws-rds
+        nameSpace: default
 
   providerConfigRef:
     name: helm-provider
